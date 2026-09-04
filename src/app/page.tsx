@@ -1,5 +1,6 @@
 import { Hero } from "@/components/hero/Hero";
 import { Header } from "@/components/layout/Header";
+import { SelectedWork } from "@/components/projects/SelectedWork";
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
       <Header />
       <main>
         <Hero />
+        <SelectedWork />
       </main>
     </div>
   );
