@@ -1,3 +1,4 @@
+import { Experience } from "@/components/experience/Experience";
 import { Hero } from "@/components/hero/Hero";
 import { Header } from "@/components/layout/Header";
 import { SelectedWork } from "@/components/projects/SelectedWork";
@@ -9,6 +10,7 @@ export default function Home() {
       <main>
         <Hero />
         <SelectedWork />
+        <Experience />
       </main>
     </div>
   );
