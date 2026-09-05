@@ -101,6 +101,7 @@ summary::marker {
   transform: scale(1.015);
 }
 
+
 .systems-visual__float {
   animation: systems-float 9s ease-in-out infinite;
   transform-box: fill-box;
@@ -162,6 +163,7 @@ summary::marker {
   html {
     scroll-behavior: auto;
   }
+
 
   .systems-visual__float,
   .systems-visual__signal {

@@ -18,9 +18,16 @@ describe("Header", () => {
     expect(
       within(navigation).getByRole("link", { name: "Experience" }),
     ).toHaveAttribute("href", "#experience");
+    expect(within(navigation).getByRole("link", { name: "About" })).toHaveAttribute(
+      "href",
+      "#about",
+    );
+    expect(
+      within(navigation).getByRole("link", { name: "Contact" }),
+    ).toHaveAttribute("href", "#contact");
   });
 
-  it("keeps the mobile Experience navigation link pointed at the section", () => {
+  it("keeps mobile navigation links pointed at their sections", () => {
     render(<Header />);
 
     const navigation = screen.getByRole("navigation", {
@@ -30,5 +37,12 @@ describe("Header", () => {
     expect(
       within(navigation).getByRole("link", { name: "Experience" }),
     ).toHaveAttribute("href", "#experience");
+    expect(within(navigation).getByRole("link", { name: "About" })).toHaveAttribute(
+      "href",
+      "#about",
+    );
+    expect(
+      within(navigation).getByRole("link", { name: "Contact" }),
+    ).toHaveAttribute("href", "#contact");
   });
 });
