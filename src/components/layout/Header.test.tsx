@@ -22,6 +22,9 @@ describe("Header", () => {
       "href",
       "#about",
     );
+    expect(
+      within(navigation).getByRole("link", { name: "Contact" }),
+    ).toHaveAttribute("href", "#contact");
   });
 
   it("keeps mobile navigation links pointed at their sections", () => {
@@ -38,5 +41,8 @@ describe("Header", () => {
       "href",
       "#about",
     );
+    expect(
+      within(navigation).getByRole("link", { name: "Contact" }),
+    ).toHaveAttribute("href", "#contact");
   });
 });

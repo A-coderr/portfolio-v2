@@ -1,3 +1,4 @@
+import { contactLinks } from "@/data/contact";
 import { SystemsVisual } from "@/components/hero/SystemsVisual";
 
 export function Hero() {
@@ -37,7 +38,7 @@ export function Hero() {
             View selected work
           </a>
           <a
-            href="https://github.com/A-coderr"
+            href={contactLinks.github.href}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex h-11 items-center justify-center rounded-lg border border-border px-5 text-sm font-semibold text-foreground outline-none transition-colors hover:border-accent hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background"
