@@ -47,10 +47,10 @@ const teaserMediaSizes =
 export const featuredProject: PortfolioProject = {
   slug: "neon-chaser",
   title: "Neon Chaser",
-  emphasis: "featured",
+  emphasis: "standard",
   preview: {
-    label: "FEATURED · GAME DEVELOPMENT · STEAM BETA",
-    role: "Co-Founder / Game Developer",
+    label: "GAME DEVELOPMENT · STEAM BETA",
+    role: "Game Developer",
     summary:
       "Built gameplay architecture and core systems for a Unity/C# racing game, including reusable power-ups, save/load, level work, and vehicle tuning.",
     technologies: ["Unity", "C#"],
@@ -91,10 +91,18 @@ export const selectedProjects: readonly PortfolioProject[] = [
     emphasis: "standard",
     preview: {
       label: "SOFTWARE ENGINEERING · INTERNAL PLATFORM",
-      role: "DLS Software Developer",
+      role: "Software Developer",
       summary:
-        "Helped lead development of an internal asset platform combining full-stack software, cloud storage, migration tooling, and interactive 3D previewing.",
-      technologies: ["React", "TypeScript", "Node.js", "Three.js", "Azure"],
+        "Led development of an internal asset platform combining full-stack software, cloud storage, migration tooling, and interactive 3D previewing.",
+      technologies: [
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "Node.js",
+        "Python",
+        "Three.js",
+        "Azure",
+      ],
       ctaLabel: "View case study",
       media: {
         kind: "technical",
@@ -109,11 +117,12 @@ export const selectedProjects: readonly PortfolioProject[] = [
       ],
       technologies: [
         "React",
+        "JavaScript",
         "TypeScript",
         "Node.js",
         "Express",
         "MongoDB",
-        "Azure Blob Storage",
+        "Azure",
         "Three.js",
         "Python",
       ],
@@ -124,10 +133,16 @@ export const selectedProjects: readonly PortfolioProject[] = [
     title: "SKIF Karate Canada",
     emphasis: "standard",
     preview: {
-      label: "PRODUCTION WEB",
+      label: "WEB DEVELOPMENT",
       summary:
         "Independently designed, built, deployed, and maintain the organization's production website.",
-      technologies: ["Next.js", "TypeScript", "Vercel"],
+      technologies: [
+        "Next.js",
+        "TypeScript",
+        "JavaScript",
+        "Tailwind CSS",
+        "Vercel",
+      ],
       ctaLabel: "View case study",
       media: {
         kind: "image",
@@ -150,13 +165,20 @@ export const selectedProjects: readonly PortfolioProject[] = [
 export const earlierWorkProjects: readonly PortfolioProject[] = [
   {
     slug: "portfolio-v1",
-    title: "Portfolio V1",
+    title: "Portfolio Website V1",
     emphasis: "quiet",
     preview: {
-      label: "EARLIER WORK",
+      label: "WEB DEVELOPMENT",
       summary:
         "Previous interactive portfolio built with React, Three.js, and React Three Fiber.",
-      technologies: ["React", "Three.js", "React Three Fiber"],
+      technologies: [
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "Three.js",
+        "HTML",
+        "CSS",
+      ],
       ctaLabel: "View project",
       media: {
         kind: "image",

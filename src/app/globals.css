@@ -101,39 +101,6 @@ summary::marker {
   transform: scale(1.015);
 }
 
-
-.systems-visual__float {
-  animation: systems-float 9s ease-in-out infinite;
-  transform-box: fill-box;
-  transform-origin: center;
-}
-
-.systems-visual__signal {
-  animation: systems-signal 7s ease-in-out infinite;
-}
-
-@keyframes systems-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-4px);
-  }
-}
-
-@keyframes systems-signal {
-  0%,
-  100% {
-    opacity: 0.72;
-  }
-
-  50% {
-    opacity: 1;
-  }
-}
-
 @media (min-width: 1024px) {
   .selected-work-grid {
     grid-auto-rows: 560px;
@@ -164,11 +131,6 @@ summary::marker {
     scroll-behavior: auto;
   }
 
-
-  .systems-visual__float,
-  .systems-visual__signal {
-    animation: none;
-  }
 
   .project-media__image {
     transition: none;

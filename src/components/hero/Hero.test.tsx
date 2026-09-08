@@ -33,4 +33,14 @@ describe("Hero", () => {
     expect(rel).toContain("noopener");
     expect(rel).toContain("noreferrer");
   });
+
+  it("renders the stylized avatar image", () => {
+    render(<Hero />);
+
+    expect(
+      screen.getByRole("img", {
+        name: "Stylized 3D avatar of Anzhelika Kostyuk surrounded by software development technologies",
+      }),
+    ).toBeInTheDocument();
+  });
 });
