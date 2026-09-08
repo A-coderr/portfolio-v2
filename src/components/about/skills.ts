@@ -15,7 +15,7 @@ export const sphereSkills: readonly SphereSkill[] = [
   { label: "R3F" },
   { label: "C#", emphasis: "primary" },
   { label: "Unity", emphasis: "primary" },
-  { label: "Python" },
+  { label: "Python", emphasis: "primary" },
   { label: "Java" },
   { label: "Swift" },
   { label: "Tailwind" },

@@ -17,7 +17,7 @@ export function About() {
       aria-labelledby="about-title"
       className="mx-auto max-w-7xl px-6 pb-20 pt-6 sm:px-8 lg:px-12 lg:pb-28 lg:pt-12"
     >
-      <div className="overflow-hidden rounded-2xl border border-border/70 bg-surface">
+      <div className="overflow-hidden rounded-2xl border border-accent bg-surface">
         <div className="grid gap-8 p-5 sm:p-7 md:p-8 lg:grid-cols-[minmax(0,1fr)_minmax(300px,400px)] lg:items-center lg:gap-8">
           <div className="max-w-3xl">
             <p className="font-mono text-xs font-medium uppercase text-muted">

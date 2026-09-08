@@ -23,7 +23,7 @@ interface DistributedSkill {
   position: [number, number, number];
 }
 
-const sphereRadius = 2.45;
+const sphereRadius = 2;
 
 function getPrefersReducedMotion() {
   return (
@@ -81,9 +81,7 @@ function createSkillTexture(skill: SphereSkill) {
     const isPrimary = skill.emphasis === "primary";
 
     context.clearRect(0, 0, canvas.width, canvas.height);
-    context.font = `${isPrimary ? 700 : 600} ${
-      isPrimary ? 78 : 68
-    }px Arial, sans-serif`;
+    context.font = `${isPrimary ? 700 : 600} ${isPrimary ? 78 : 68}px Arial`;
     context.fillStyle = "#F4F2ED";
     context.textAlign = "center";
     context.textBaseline = "middle";
@@ -104,7 +102,11 @@ function SkillWord({ skill, position }: DistributedSkill) {
   const materialRef = useRef<MeshBasicMaterial>(null);
   const worldPosition = useMemo(() => new Vector3(), []);
   const texture = useMemo(() => createSkillTexture(skill), [skill]);
-  const baseWidth = MathUtils.clamp(skill.label.length * 0.16 + 0.72, 1.1, 2.75);
+  const baseWidth = MathUtils.clamp(
+    skill.label.length * 0.16 + 0.72,
+    1.1,
+    2.75,
+  );
   const baseHeight = skill.emphasis === "primary" ? 0.56 : 0.5;
 
   useEffect(() => () => texture.dispose(), [texture]);
@@ -189,7 +191,11 @@ export function SkillsSphere({ skills }: SkillsSphereProps) {
           dpr={[1, 1.5]}
           camera={{ position: [0, 0, 6.8], fov: 42 }}
           frameloop={prefersReducedMotion ? "demand" : "always"}
-          gl={{ alpha: true, antialias: true, powerPreference: "high-performance" }}
+          gl={{
+            alpha: true,
+            antialias: true,
+            powerPreference: "high-performance",
+          }}
           fallback={<div className="h-full w-full" />}
         >
           <SkillsSphereScene
