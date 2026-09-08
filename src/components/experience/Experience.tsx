@@ -50,7 +50,7 @@ export function Experience() {
                 >
                   {entry.company}
                 </h3>
-                <p className="mt-2 text-sm font-medium text-foreground">
+                <p className="mt-2 text-sm font-medium text-accent">
                   {entry.role}
                 </p>
               </div>
@@ -60,7 +60,7 @@ export function Experience() {
                   {entry.summary}
                 </p>
                 {entry.context ? (
-                  <p className="mt-4 font-mono text-xs uppercase leading-5 text-muted">
+                  <p className="mt-4 font-mono text-xs uppercase leading-5 text-foreground">
                     {entry.context}
                   </p>
                 ) : null}
