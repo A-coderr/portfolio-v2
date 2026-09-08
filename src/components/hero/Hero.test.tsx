@@ -25,7 +25,7 @@ describe("Hero", () => {
   it("links to GitHub safely in a new tab", () => {
     render(<Hero />);
 
-    const githubLink = screen.getByRole("link", { name: "GitHub ↗" });
+    const githubLink = screen.getByRole("link", { name: "GitHub" });
     const rel = githubLink.getAttribute("rel");
 
     expect(githubLink).toHaveAttribute("href", "https://github.com/A-coderr");

@@ -4,13 +4,13 @@ import { ProjectTeaserCard } from "./ProjectTeaserCard";
 export function SelectedWork() {
   return (
     <section
-      id="work"
+      id="projects"
       aria-labelledby="selected-work-title"
       className="mx-auto max-w-7xl px-6 pb-20 pt-10 sm:px-8 lg:px-12 lg:pb-28 lg:pt-16"
     >
       <div className="max-w-3xl">
         <p className="font-mono text-xs font-medium uppercase text-muted">
-          SELECTED WORK
+          PROJECTS
         </p>
         <h2
           id="selected-work-title"

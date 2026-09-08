@@ -41,3 +41,8 @@ export const socialContactLinks = [
   contactLinks.github,
   contactLinks.linkedin,
 ] as const;
+
+export const resumeLink = {
+  label: "Download Resume",
+  href: "/resume/resume_anzhelika_kostyuk.pdf",
+} as const;
