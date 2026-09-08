@@ -1,5 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { getProjectHref, homepageProjects } from "@/data/projects";
 import { SelectedWork } from "./SelectedWork";
 
 function getProjectArticle(name: string) {
@@ -11,6 +12,11 @@ function getProjectArticle(name: string) {
   return article as HTMLElement;
 }
 
+function getImageFilename(src: string) {
+  const parts = src.split("/");
+  return parts[parts.length - 1] ?? src;
+}
+
 describe("SelectedWork", () => {
   it("renders the selected work section with the expected anchor target", () => {
     render(<SelectedWork />);
@@ -19,97 +25,100 @@ describe("SelectedWork", () => {
       name: "Engineering across software, games and interactive systems.",
     });
 
-    expect(section).toHaveAttribute("id", "work");
-    expect(screen.getByText("SELECTED WORK")).toBeInTheDocument();
-  });
-
-  it("renders Neon Chaser with its supplied image and case-study link", () => {
-    render(<SelectedWork />);
-
-    const neonChaser = getProjectArticle("Neon Chaser");
-
+    expect(section).toHaveAttribute("id", "projects");
+    expect(screen.getByText("PROJECTS")).toBeInTheDocument();
     expect(
-      within(neonChaser).getByText("FEATURED · GAME DEVELOPMENT · STEAM BETA"),
-    ).toBeInTheDocument();
-
-    const image = within(neonChaser).getByRole("img", {
-      name: "Screenshot of the Neon Chaser Unity racing game.",
-    });
-
-    expect(image).toHaveAttribute("src", expect.stringContaining("neon-chaser.webp"));
-    expect(
-      within(neonChaser).getByText(
-        "Built gameplay architecture and core systems for a Unity/C# racing game, including reusable power-ups, save/load, level work, and vehicle tuning.",
+      screen.getByText(
+        /Selected professional and independent work focused on system design/i,
       ),
     ).toBeInTheDocument();
-    expect(
-      within(neonChaser).getByRole("link", {
-        name: "View case study for Neon Chaser",
-      }),
-    ).toHaveAttribute("href", "/work/neon-chaser");
   });
 
-  it("links the asset platform teaser to its case-study shell", () => {
+  it("renders the homepage projects from the shared project data", () => {
+    render(<SelectedWork />);
+
+    for (const project of homepageProjects) {
+      const projectArticle = getProjectArticle(project.title);
+
+      expect(
+        within(projectArticle).getByText(project.preview.label),
+      ).toBeInTheDocument();
+      expect(
+        within(projectArticle).getByText(project.preview.summary),
+      ).toBeInTheDocument();
+      for (const technology of project.preview.technologies) {
+        expect(within(projectArticle).getByText(technology)).toBeInTheDocument();
+      }
+      expect(
+        within(projectArticle).getByRole("link", {
+          name: `${project.preview.ctaLabel} for ${project.title}`,
+        }),
+      ).toHaveAttribute("href", getProjectHref(project));
+    }
+  });
+
+  it("keeps Neon Chaser first in the project sequence", () => {
+    render(<SelectedWork />);
+
+    const projectTitles = screen
+      .getAllByRole("heading", { level: 3 })
+      .map((heading) => heading.textContent);
+
+    expect(projectTitles).toEqual(
+      homepageProjects.map((project) => project.title),
+    );
+    expect(projectTitles[0]).toBe("Neon Chaser");
+  });
+
+  it("renders supplied project images with meaningful alt text", () => {
+    render(<SelectedWork />);
+
+    for (const project of homepageProjects) {
+      if (project.preview.media?.kind !== "image") {
+        continue;
+      }
+
+      const projectArticle = getProjectArticle(project.title);
+      const image = within(projectArticle).getByRole("img", {
+        name: project.preview.media.alt,
+      });
+
+      expect(image).toHaveAttribute(
+        "src",
+        expect.stringContaining(getImageFilename(project.preview.media.src)),
+      );
+    }
+  });
+
+  it("does not expose confidential internal imagery for the asset platform", () => {
     render(<SelectedWork />);
 
     const platform = getProjectArticle("Digital Asset Management Platform");
 
-    expect(within(platform).getByText("DLS Software Developer")).toBeInTheDocument();
-    expect(within(platform).getByText("React")).toBeInTheDocument();
-    expect(within(platform).getByText("Three.js")).toBeInTheDocument();
-    expect(
-      within(platform).getByRole("link", {
-        name: "View case study for Digital Asset Management Platform",
-      }),
-    ).toHaveAttribute("href", "/work/asset-platform");
-  });
-
-  it("renders SKIF Karate Canada with its supplied image and case-study link", () => {
-    render(<SelectedWork />);
-
-    const skif = getProjectArticle("SKIF Karate Canada");
-    const image = within(skif).getByRole("img", {
-      name: "Screenshot of the SKIF Karate Canada production website.",
-    });
-
-    expect(image).toHaveAttribute(
-      "src",
-      expect.stringContaining("skif-karate-canada.webp"),
-    );
-    expect(
-      within(skif).getByRole("link", {
-        name: "View case study for SKIF Karate Canada",
-      }),
-    ).toHaveAttribute("href", "/work/skif-karate-canada");
-  });
-
-  it("renders Portfolio V1 as quieter earlier work with a project link", () => {
-    render(<SelectedWork />);
-
-    const portfolio = getProjectArticle("Portfolio V1");
-    const image = within(portfolio).getByRole("img", {
-      name: "Screenshot of Anzhelika Kostyuk's previous interactive portfolio.",
-    });
-
-    expect(within(portfolio).getByText("EARLIER WORK")).toBeInTheDocument();
-    expect(image).toHaveAttribute("src", expect.stringContaining("portfolio-v1.webp"));
-    expect(
-      within(portfolio).getByRole("link", { name: "View project for Portfolio V1" }),
-    ).toHaveAttribute("href", "/work/portfolio-v1");
+    expect(within(platform).queryByRole("img")).not.toBeInTheDocument();
   });
 
   it("does not render detailed homepage sections or old placeholder terms", () => {
     render(<SelectedWork />);
 
     expect(screen.queryByText("MY CONTRIBUTION")).not.toBeInTheDocument();
-    expect(screen.queryByText("Reusable gameplay systems")).not.toBeInTheDocument();
-    expect(screen.queryByText("Game state & progression")).not.toBeInTheDocument();
+    expect(screen.queryByText(/FEATURED/i)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("Reusable gameplay systems"),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("Game state & progression"),
+    ).not.toBeInTheDocument();
     expect(screen.queryByText("Gameplay refinement")).not.toBeInTheDocument();
     expect(screen.queryByText("Technical ownership")).not.toBeInTheDocument();
-    expect(screen.queryByText("Interactive 3D tooling")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("Interactive 3D tooling"),
+    ).not.toBeInTheDocument();
     expect(screen.queryByText("Full-stack systems")).not.toBeInTheDocument();
     expect(screen.queryByText("End-to-end ownership")).not.toBeInTheDocument();
-    expect(screen.queryByText("Production maintenance")).not.toBeInTheDocument();
+    expect(
+      screen.queryByText("Production maintenance"),
+    ).not.toBeInTheDocument();
     expect(screen.queryByText(/MEDIA SLOT/i)).not.toBeInTheDocument();
     expect(screen.queryByText(/planned/i)).not.toBeInTheDocument();
   });

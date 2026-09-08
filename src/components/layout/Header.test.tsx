@@ -14,17 +14,15 @@ describe("Header", () => {
 
     expect(navigation).toBeInTheDocument();
     expect(within(navigation).getAllByRole("link")).toHaveLength(4);
-    expect(within(navigation).getByRole("link", { name: "Work" })).toHaveAttribute(
-      "href",
-      "#work",
-    );
+    expect(
+      within(navigation).getByRole("link", { name: "Projects" }),
+    ).toHaveAttribute("href", "#projects");
     expect(
       within(navigation).getByRole("link", { name: "Experience" }),
     ).toHaveAttribute("href", "#experience");
-    expect(within(navigation).getByRole("link", { name: "About" })).toHaveAttribute(
-      "href",
-      "#about",
-    );
+    expect(
+      within(navigation).getByRole("link", { name: "About" }),
+    ).toHaveAttribute("href", "#about");
     expect(
       within(navigation).getByRole("link", { name: "Contact" }),
     ).toHaveAttribute("href", "#contact");
@@ -55,12 +53,14 @@ describe("Header", () => {
     });
 
     expect(
+      within(navigation).getByRole("link", { name: "Projects" }),
+    ).toHaveAttribute("href", "#projects");
+    expect(
       within(navigation).getByRole("link", { name: "Experience" }),
     ).toHaveAttribute("href", "#experience");
-    expect(within(navigation).getByRole("link", { name: "About" })).toHaveAttribute(
-      "href",
-      "#about",
-    );
+    expect(
+      within(navigation).getByRole("link", { name: "About" }),
+    ).toHaveAttribute("href", "#about");
     expect(
       within(navigation).getByRole("link", { name: "Contact" }),
     ).toHaveAttribute("href", "#contact");

@@ -14,12 +14,13 @@ describe("Hero", () => {
     ).toBeInTheDocument();
   });
 
-  it("links the primary call to action to the work section", () => {
+  it("links the primary call to action to the projects section", () => {
     render(<Hero />);
 
-    expect(
-      screen.getByRole("link", { name: "View selected work" }),
-    ).toHaveAttribute("href", "#work");
+    expect(screen.getByRole("link", { name: "View projects" })).toHaveAttribute(
+      "href",
+      "#projects",
+    );
   });
 
   it("links to GitHub safely in a new tab", () => {

@@ -1,5 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
+import { allProjects, getProjectBySlug } from "@/data/projects";
 import WorkProjectPage, { generateMetadata, generateStaticParams } from "./page";
 
 async function renderCaseStudy(slug: string) {
@@ -10,42 +11,46 @@ async function renderCaseStudy(slug: string) {
   render(page);
 }
 
+function getProjectOrFail(slug: string) {
+  const project = getProjectBySlug(slug);
+
+  expect(project).toBeDefined();
+  return project!;
+}
+
 describe("WorkProjectPage", () => {
   it("generates static params for the supported project routes", () => {
     expect(generateStaticParams()).toEqual(
-      expect.arrayContaining([
-        { slug: "neon-chaser" },
-        { slug: "asset-platform" },
-        { slug: "skif-karate-canada" },
-        { slug: "portfolio-v1" },
-      ]),
+      allProjects.map((project) => ({ slug: project.slug })),
     );
   });
 
   it("renders a known project case-study shell from project data", async () => {
+    const neonChaser = getProjectOrFail("neon-chaser");
+
     await renderCaseStudy("neon-chaser");
 
     expect(
-      screen.getByRole("link", { name: "← Back to selected work" }),
-    ).toHaveAttribute("href", "/#work");
+      screen.getByRole("link", { name: /Back to projects/i }),
+    ).toHaveAttribute("href", "/#projects");
     expect(
-      screen.getByRole("heading", { level: 1, name: "Neon Chaser" }),
+      screen.getByRole("heading", { level: 1, name: neonChaser.title }),
     ).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        "Built gameplay architecture and core systems for a Unity/C# racing game, including reusable power-ups, save/load, level work, and vehicle tuning.",
-      ),
-    ).toBeInTheDocument();
+    expect(screen.getByText(neonChaser.preview.summary)).toBeInTheDocument();
+    for (const technology of neonChaser.preview.technologies) {
+      expect(screen.getByText(technology)).toBeInTheDocument();
+    }
     expect(screen.getByText("Full case study coming next")).toBeInTheDocument();
   });
 
   it("generates route metadata from project data", async () => {
+    const assetPlatform = getProjectOrFail("asset-platform");
+
     await expect(
       generateMetadata({ params: Promise.resolve({ slug: "asset-platform" }) }),
     ).resolves.toMatchObject({
-      title: "Digital Asset Management Platform | Anzhelika Kostyuk",
-      description:
-        "Helped lead development of an internal asset platform combining full-stack software, cloud storage, migration tooling, and interactive 3D previewing.",
+      title: `${assetPlatform.title} | Anzhelika Kostyuk`,
+      description: assetPlatform.preview.summary,
     });
   });
 
