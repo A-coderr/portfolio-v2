@@ -14,10 +14,10 @@ export function CaseStudyShell({ project }: CaseStudyShellProps) {
     <main className="min-h-screen bg-background text-foreground">
       <section className="mx-auto max-w-7xl px-6 py-10 sm:px-8 lg:px-12 lg:py-14">
         <Link
-          href="/#work"
+          href="/#projects"
           className="inline-flex items-center rounded-sm font-mono text-xs font-medium uppercase text-muted outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background"
         >
-          ← Back to selected work
+          ← Back to projects
         </Link>
 
         <article className="mt-10">

@@ -16,7 +16,7 @@ const emphasisStyles = {
   },
   standard: {
     article: "border-border/50 bg-surface",
-    label: "text-muted",
+    label: "text-accent",
     cta: "text-foreground hover:text-accent",
   },
   quiet: {
@@ -39,7 +39,9 @@ export function ProjectTeaserCard({ project }: ProjectTeaserCardProps) {
       {preview.media ? <ProjectMedia media={preview.media} /> : null}
 
       <div className="flex flex-1 flex-col p-5 sm:p-6">
-        <p className={`font-mono text-xs font-medium uppercase ${styles.label}`}>
+        <p
+          className={`font-mono text-xs font-medium uppercase ${styles.label}`}
+        >
           {preview.label}
         </p>
         <h3
