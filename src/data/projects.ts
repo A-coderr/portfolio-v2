@@ -103,7 +103,15 @@ export const selectedProjects: readonly PortfolioProject[] = [
       ],
       ctaLabel: "Learn more",
       media: {
-        kind: "technical",
+        kind: "image",
+        src: "/images/projects/asset-management.webp",
+        alt: "Screenshot of the Digital Asset Management Platform interface.",
+        width: 1672,
+        height: 941,
+        sizes: teaserMediaSizes,
+        loading: "lazy",
+        fit: "cover",
+        position: "center",
       },
     },
     caseStudyNotes: {
@@ -208,3 +216,4 @@ export function getProjectBySlug(slug: string) {
 export function getProjectHref(project: Pick<PortfolioProject, "slug">) {
   return `/work/${project.slug}`;
 }
+

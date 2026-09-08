@@ -90,12 +90,18 @@ describe("SelectedWork", () => {
     }
   });
 
-  it("does not expose confidential internal imagery for the asset platform", () => {
+  it("renders the asset-management image for the asset platform", () => {
     render(<SelectedWork />);
 
     const platform = getProjectArticle("Digital Asset Management Platform");
+    const image = within(platform).getByRole("img", {
+      name: "Screenshot of the Digital Asset Management Platform interface.",
+    });
 
-    expect(within(platform).queryByRole("img")).not.toBeInTheDocument();
+    expect(image).toHaveAttribute(
+      "src",
+      expect.stringContaining("asset-management.webp"),
+    );
   });
 
   it("does not render detailed homepage sections or old placeholder terms", () => {
@@ -123,3 +129,4 @@ describe("SelectedWork", () => {
     expect(screen.queryByText(/planned/i)).not.toBeInTheDocument();
   });
 });
+
