@@ -1,6 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { getProjectHref, homepageProjects } from "@/data/projects";
+import { getProjectBySlug, getProjectHref, homepageProjects } from "@/data/projects";
 import { SelectedWork } from "./SelectedWork";
 
 function getProjectArticle(name: string) {
@@ -55,6 +55,25 @@ describe("SelectedWork", () => {
         }),
       ).toHaveAttribute("href", getProjectHref(project));
     }
+  });
+
+  it("links the SKIF project card to its case-study route with the current CTA text", () => {
+    const skifProject = getProjectBySlug("skif-karate-canada");
+
+    expect(skifProject).toBeDefined();
+
+    render(<SelectedWork />);
+
+    const skifArticle = getProjectArticle("SKIF Karate Canada");
+
+    expect(
+      within(skifArticle).getByText(skifProject!.preview.summary),
+    ).toBeInTheDocument();
+    expect(
+      within(skifArticle).getByRole("link", {
+        name: `${skifProject!.preview.ctaLabel} for ${skifProject!.title}`,
+      }),
+    ).toHaveAttribute("href", "/work/skif-karate-canada");
   });
 
   it("keeps Neon Chaser first in the project sequence", () => {
@@ -129,4 +148,3 @@ describe("SelectedWork", () => {
     expect(screen.queryByText(/planned/i)).not.toBeInTheDocument();
   });
 });
-

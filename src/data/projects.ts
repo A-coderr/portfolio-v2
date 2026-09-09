@@ -142,13 +142,7 @@ export const selectedProjects: readonly PortfolioProject[] = [
       label: "WEB DEVELOPMENT",
       summary:
         "A modern website for SKIF Karate Canada, bringing training schedules, instructors, events, pricing, and national karate updates into one focused experience.",
-      technologies: [
-        "Next.js",
-        "TypeScript",
-        "JavaScript",
-        "Tailwind CSS",
-        "Vercel",
-      ],
+      technologies: ["Next.js", "TypeScript", "Tailwind CSS", "Vercel"],
       ctaLabel: "Learn more",
       media: {
         kind: "image",

@@ -13,6 +13,13 @@ import {
   saveWriteSteps,
 } from "@/data/neon-chaser-case-study";
 import { allProjects, getProjectBySlug } from "@/data/projects";
+import {
+  skifCaseStudyLinks,
+  skifCaseStudyMetadata,
+  skifFocusAreas,
+  skifHeroLabels,
+  skifLifecycleSteps,
+} from "@/data/skif-case-study";
 import WorkProjectPage, { generateMetadata, generateStaticParams } from "./page";
 
 async function renderCaseStudy(slug: string) {
@@ -123,6 +130,79 @@ describe("WorkProjectPage", () => {
     }
   });
 
+  it("renders the SKIF Karate Canada case study with the updated web-development context", async () => {
+    await renderCaseStudy("skif-karate-canada");
+
+    expect(screen.getByText("WEB DEVELOPMENT")).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { level: 1, name: "SKIF Karate Canada" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "A production website that brings schedules, instructors, competition updates, and essential dojo information into one clear, maintainable digital home.",
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", {
+        name: "Screenshot of the SKIF Karate Canada production website.",
+      }),
+    ).toBeInTheDocument();
+
+    const liveSiteLink = screen.getByRole("link", { name: /Visit Live Site/i });
+
+    expect(liveSiteLink).toHaveAttribute("href", skifCaseStudyLinks.liveSite);
+    expect(liveSiteLink).toHaveAttribute("target", "_blank");
+    expect(liveSiteLink).toHaveAttribute("rel", "noopener noreferrer");
+
+    const technicalLabels = screen.getByRole("list", {
+      name: "Technical labels",
+    });
+
+    for (const label of skifHeroLabels) {
+      expect(within(technicalLabels).getByText(label)).toBeInTheDocument();
+    }
+  });
+
+  it("renders the compact SKIF information architecture and production ownership sections", async () => {
+    await renderCaseStudy("skif-karate-canada");
+
+    for (const heading of [
+      "Making a content-heavy organization easy to navigate",
+      "Built to keep changing",
+    ]) {
+      expect(
+        screen.getByRole("heading", { level: 2, name: heading }),
+      ).toBeInTheDocument();
+    }
+
+    expect(
+      screen.queryByRole("heading", { level: 2, name: "See the live site" }),
+    ).not.toBeInTheDocument();
+
+    for (const area of skifFocusAreas) {
+      expect(screen.getByText(area.label)).toBeInTheDocument();
+      expect(
+        screen.getByRole("heading", { level: 3, name: area.title }),
+      ).toBeInTheDocument();
+      expect(screen.getByText(area.description)).toBeInTheDocument();
+    }
+
+    expect(
+      screen.getByText(/The site was designed as an ongoing production property/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/My role spans the full website lifecycle/i),
+    ).toBeInTheDocument();
+
+    const lifecycle = screen.getByRole("list", {
+      name: "Website production lifecycle",
+    });
+
+    for (const step of skifLifecycleSteps) {
+      expect(within(lifecycle).getByText(step)).toBeInTheDocument();
+    }
+  });
+
   it("loads the YouTube trailer iframe only after user interaction", async () => {
     await renderCaseStudy("neon-chaser");
 
@@ -192,6 +272,13 @@ describe("WorkProjectPage", () => {
     ).resolves.toMatchObject({
       title: neonChaserCaseStudyMetadata.title,
       description: neonChaserCaseStudyMetadata.description,
+    });
+
+    await expect(
+      generateMetadata({ params: Promise.resolve({ slug: "skif-karate-canada" }) }),
+    ).resolves.toMatchObject({
+      title: skifCaseStudyMetadata.title,
+      description: skifCaseStudyMetadata.description,
     });
 
     await expect(
