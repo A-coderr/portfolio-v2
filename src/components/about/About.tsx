@@ -71,7 +71,7 @@ export function About() {
               <h3 id="technical-skills-title">Technical skills</h3>
               <ul aria-labelledby="technical-skills-title">
                 {sphereSkills.map((skill) => (
-                  <li key={skill.label}>{skill.label}</li>
+                  <li key={skill.name}>{skill.name}</li>
                 ))}
               </ul>
             </div>
