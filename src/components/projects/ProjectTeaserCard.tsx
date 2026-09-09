@@ -34,7 +34,7 @@ export function ProjectTeaserCard({ project }: ProjectTeaserCardProps) {
   return (
     <article
       aria-labelledby={titleId}
-      className={`project-teaser-card group rounded-lg border transition-colors hover:border-border ${styles.article}`}
+      className={`project-teaser-card group rounded-lg border interactive-transition hover:border-border ${styles.article}`}
     >
       {preview.media ? <ProjectMedia media={preview.media} /> : null}
 
@@ -62,12 +62,12 @@ export function ProjectTeaserCard({ project }: ProjectTeaserCardProps) {
           <Link
             href={getProjectHref(project)}
             aria-label={`${preview.ctaLabel} for ${project.title}`}
-            className={`mt-5 inline-flex items-center gap-2 rounded-sm font-mono text-xs font-medium uppercase outline-none transition-colors focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background ${styles.cta}`}
+            className={`mt-5 inline-flex items-center gap-2 rounded-sm font-mono text-xs font-medium uppercase outline-none interactive-transition focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background ${styles.cta}`}
           >
             <span>{preview.ctaLabel}</span>
             <span
               aria-hidden="true"
-              className="transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+              className="interactive-transition group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0"
             >
               →
             </span>

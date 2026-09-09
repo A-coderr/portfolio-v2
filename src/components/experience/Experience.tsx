@@ -29,7 +29,7 @@ export function Experience() {
           <li key={entry.id}>
             <article
               aria-labelledby={`${entry.id}-title`}
-              className="grid gap-4 border-b border-border/60 py-7 transition-colors hover:border-border sm:py-8 lg:grid-cols-[minmax(7rem,0.55fr)_minmax(15rem,0.95fr)_minmax(0,1.8fr)] lg:gap-10 lg:py-9"
+              className="grid gap-4 border-b border-border/60 py-7 interactive-transition hover:border-border sm:py-8 lg:grid-cols-[minmax(7rem,0.55fr)_minmax(15rem,0.95fr)_minmax(0,1.8fr)] lg:gap-10 lg:py-9"
             >
               <div className="flex items-center gap-3 lg:items-start">
                 <p className="font-mono text-xs font-medium uppercase tracking-normal text-muted">
