@@ -6,6 +6,8 @@ export interface ContactLink {
 
 export interface EmailContactLink extends ContactLink {
   address: string;
+  subject: string;
+  body: string;
 }
 
 export interface SocialContactLink extends ContactLink {
@@ -14,6 +16,18 @@ export interface SocialContactLink extends ContactLink {
 }
 
 const emailAddress = "kostyukanzhelika@gmail.com";
+const emailSubject = "Portfolio inquiry";
+const emailBody = [
+  "Hi Anzhelika,",
+  "",
+  "I came across your portfolio and would like to connect about a software engineering opportunity.",
+  "",
+  "Best,",
+].join("\n");
+
+function buildMailtoHref(address: string, subject: string, body: string) {
+  return `mailto:${address}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+}
 
 export const contactLinks: {
   email: EmailContactLink;
@@ -22,8 +36,10 @@ export const contactLinks: {
 } = {
   email: {
     label: "Email",
-    href: `mailto:${emailAddress}`,
+    href: buildMailtoHref(emailAddress, emailSubject, emailBody),
     address: emailAddress,
+    subject: emailSubject,
+    body: emailBody,
   },
   github: {
     label: "GitHub",
@@ -41,3 +57,8 @@ export const socialContactLinks = [
   contactLinks.github,
   contactLinks.linkedin,
 ] as const;
+
+export const resumeLink = {
+  label: "Download Resume",
+  href: "/resume/resume_anzhelika_kostyuk.pdf",
+} as const;

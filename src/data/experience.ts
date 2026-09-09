@@ -16,17 +16,8 @@ export const experienceItems: readonly ExperienceEntry[] = [
     role: "Co-Founder / Game Developer",
     summary:
       "Co-developing Neon Chaser in Unity/C#, with work spanning gameplay architecture, power-up systems, save/load functionality, level development, vehicle tuning, QA, and technical documentation.",
-    context: "Unity · C# · Gameplay Systems",
+    context: "Unity · C# · Gameplay Systems · QA · Technical Documentation",
     current: true,
-  },
-  {
-    id: "varlab-dls-software-developer",
-    period: "2022 — 2025",
-    company: "VARLab · Conestoga College",
-    role: "DLS Software Developer",
-    summary:
-      "Built full-stack web applications, interactive 3D tooling, and Unity learning simulations while contributing to architecture, testing, code review, deployment, mentoring, and technical leadership.",
-    context: "React · TypeScript · Node.js · Three.js · Unity/C#",
   },
   {
     id: "the-falls-road-pub",
@@ -38,13 +29,24 @@ export const experienceItems: readonly ExperienceEntry[] = [
     context: "Production Web · Integrations · QA",
   },
   {
+    id: "varlab-dls-software-developer",
+    period: "2022 — 2025",
+    company: "VARLab · Conestoga College",
+    role: "DLS Software Developer",
+    summary:
+      "Built full-stack web applications, interactive 3D tooling, and Unity learning simulations while contributing to architecture, testing, code review, deployment, mentoring, and technical leadership.",
+    context:
+      "React · TypeScript · JavaScript · C# · Unity · Python · Node.js · Three.js · Azure · QA · Agile Development",
+  },
+  {
     id: "varlab-ar-vr-software-developer",
     period: "2021",
     company: "VARLab · Conestoga College",
     role: "AR/VR Software Developer",
     summary:
       "Developed reusable Unity/C# components and interactive 2D/3D learning experiences, with attention to object-oriented design, performance, testing, and version control.",
-    context: "Unity · C#",
+    context:
+      "Unity · C# · AR/VR · Interactive 3D · QA · Version Control · Agile Development",
   },
   {
     id: "conestoga-mobile-developer",
@@ -53,6 +55,7 @@ export const experienceItems: readonly ExperienceEntry[] = [
     role: "Mobile Developer",
     summary:
       "Contributed to an AR mask-fit research application using real-time face analysis across Android and iOS, with Python supporting data gathering and machine-learning work.",
-    context: "Java · Swift · Python · Mobile AR",
+    context:
+      "Java · Swift · Python · Mobile AR · Machine Learning · QA · Version Control · Technical Documentation · Agile Development",
   },
 ];

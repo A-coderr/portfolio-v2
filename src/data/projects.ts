@@ -47,14 +47,13 @@ const teaserMediaSizes =
 export const featuredProject: PortfolioProject = {
   slug: "neon-chaser",
   title: "Neon Chaser",
-  emphasis: "featured",
+  emphasis: "standard",
   preview: {
-    label: "FEATURED · GAME DEVELOPMENT · STEAM BETA",
-    role: "Co-Founder / Game Developer",
+    label: "GAME DEVELOPMENT",
     summary:
-      "Built gameplay architecture and core systems for a Unity/C# racing game, including reusable power-ups, save/load, level work, and vehicle tuning.",
+      "A neon-noir drift racing game built around physics-based driving, high-speed chases, and vehicle combat.",
     technologies: ["Unity", "C#"],
-    ctaLabel: "View case study",
+    ctaLabel: "Learn more",
     media: {
       kind: "image",
       src: "/images/projects/neon-chaser.webp",
@@ -90,14 +89,29 @@ export const selectedProjects: readonly PortfolioProject[] = [
     title: "Digital Asset Management Platform",
     emphasis: "standard",
     preview: {
-      label: "SOFTWARE ENGINEERING · INTERNAL PLATFORM",
-      role: "DLS Software Developer",
+      label: "SOFTWARE ENGINEERING",
       summary:
-        "Helped lead development of an internal asset platform combining full-stack software, cloud storage, migration tooling, and interactive 3D previewing.",
-      technologies: ["React", "TypeScript", "Node.js", "Three.js", "Azure"],
-      ctaLabel: "View case study",
+        "A browser-based home for 3D assets, bringing cloud storage, migration, and interactive model previews into one workflow.",
+      technologies: [
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "Node.js",
+        "Python",
+        "Three.js",
+        "Azure",
+      ],
+      ctaLabel: "Learn more",
       media: {
-        kind: "technical",
+        kind: "image",
+        src: "/images/projects/asset-management.webp",
+        alt: "Screenshot of the Digital Asset Management Platform interface.",
+        width: 1672,
+        height: 941,
+        sizes: teaserMediaSizes,
+        loading: "lazy",
+        fit: "cover",
+        position: "center",
       },
     },
     caseStudyNotes: {
@@ -109,11 +123,12 @@ export const selectedProjects: readonly PortfolioProject[] = [
       ],
       technologies: [
         "React",
+        "JavaScript",
         "TypeScript",
         "Node.js",
         "Express",
         "MongoDB",
-        "Azure Blob Storage",
+        "Azure",
         "Three.js",
         "Python",
       ],
@@ -124,11 +139,17 @@ export const selectedProjects: readonly PortfolioProject[] = [
     title: "SKIF Karate Canada",
     emphasis: "standard",
     preview: {
-      label: "PRODUCTION WEB",
+      label: "WEB DEVELOPMENT",
       summary:
-        "Independently designed, built, deployed, and maintain the organization's production website.",
-      technologies: ["Next.js", "TypeScript", "Vercel"],
-      ctaLabel: "View case study",
+        "A modern website for SKIF Karate Canada, bringing training schedules, instructors, events, pricing, and national karate updates into one focused experience.",
+      technologies: [
+        "Next.js",
+        "TypeScript",
+        "JavaScript",
+        "Tailwind CSS",
+        "Vercel",
+      ],
+      ctaLabel: "Learn more",
       media: {
         kind: "image",
         src: "/images/projects/skif-karate-canada.webp",
@@ -137,8 +158,8 @@ export const selectedProjects: readonly PortfolioProject[] = [
         height: 1067,
         sizes: teaserMediaSizes,
         loading: "lazy",
-        fit: "contain",
-        position: "center top",
+        fit: "cover",
+        position: "center",
       },
     },
     caseStudyNotes: {
@@ -150,14 +171,21 @@ export const selectedProjects: readonly PortfolioProject[] = [
 export const earlierWorkProjects: readonly PortfolioProject[] = [
   {
     slug: "portfolio-v1",
-    title: "Portfolio V1",
-    emphasis: "quiet",
+    title: "Portfolio Website V1",
+    emphasis: "standard",
     preview: {
-      label: "EARLIER WORK",
+      label: "WEB DEVELOPMENT",
       summary:
-        "Previous interactive portfolio built with React, Three.js, and React Three Fiber.",
-      technologies: ["React", "Three.js", "React Three Fiber"],
-      ctaLabel: "View project",
+        "Before this portfolio, I built one where skills lived inside an interactive 3D world—an early exploration of React and browser-based 3D.",
+      technologies: [
+        "React",
+        "TypeScript",
+        "JavaScript",
+        "Three.js",
+        "HTML",
+        "CSS",
+      ],
+      ctaLabel: "Learn more",
       media: {
         kind: "image",
         src: "/images/projects/portfolio-v1.webp",
@@ -166,7 +194,7 @@ export const earlierWorkProjects: readonly PortfolioProject[] = [
         height: 856,
         sizes: teaserMediaSizes,
         loading: "lazy",
-        fit: "contain",
+        fit: "cover",
         position: "center",
       },
     },
@@ -188,3 +216,4 @@ export function getProjectBySlug(slug: string) {
 export function getProjectHref(project: Pick<PortfolioProject, "slug">) {
   return `/work/${project.slug}`;
 }
+

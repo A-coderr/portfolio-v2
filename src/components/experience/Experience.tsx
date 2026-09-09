@@ -29,7 +29,7 @@ export function Experience() {
           <li key={entry.id}>
             <article
               aria-labelledby={`${entry.id}-title`}
-              className="grid gap-4 border-b border-border/60 py-7 transition-colors hover:border-border sm:py-8 lg:grid-cols-[minmax(7rem,0.55fr)_minmax(15rem,0.95fr)_minmax(0,1.8fr)] lg:gap-10 lg:py-9"
+              className="grid gap-4 border-b border-border/60 py-7 interactive-transition hover:border-border sm:py-8 lg:grid-cols-[minmax(7rem,0.55fr)_minmax(15rem,0.95fr)_minmax(0,1.8fr)] lg:gap-10 lg:py-9"
             >
               <div className="flex items-center gap-3 lg:items-start">
                 <p className="font-mono text-xs font-medium uppercase tracking-normal text-muted">
@@ -50,7 +50,7 @@ export function Experience() {
                 >
                   {entry.company}
                 </h3>
-                <p className="mt-2 text-sm font-medium text-foreground">
+                <p className="mt-2 text-sm font-medium text-accent">
                   {entry.role}
                 </p>
               </div>
@@ -60,7 +60,7 @@ export function Experience() {
                   {entry.summary}
                 </p>
                 {entry.context ? (
-                  <p className="mt-4 font-mono text-xs uppercase leading-5 text-muted">
+                  <p className="mt-4 font-mono text-xs uppercase leading-5 text-foreground">
                     {entry.context}
                   </p>
                 ) : null}

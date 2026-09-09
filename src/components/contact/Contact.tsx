@@ -1,5 +1,6 @@
 import { contactLinks, socialContactLinks, type SocialContactLink } from "@/data/contact";
 import type { SVGProps } from "react";
+import { ContactEmailCta } from "./ContactEmailCta";
 
 const primaryStatement =
   "Looking for an engineer who can work across software, interactive systems and gameplay?";
@@ -36,18 +37,18 @@ export function Contact() {
             and gameplay systems.
           </p>
 
-          <a
-            href={contactLinks.email.href}
-            className="group mt-8 inline-flex items-center gap-2 rounded-sm text-base font-semibold text-accent outline-none transition-colors hover:text-foreground focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background"
+          <ContactEmailCta
+            link={contactLinks.email}
+            className="group inline-flex items-center gap-2 rounded-sm text-base font-semibold text-accent outline-none interactive-transition hover:text-foreground focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background"
           >
             <span>Get in touch</span>
             <span
               aria-hidden="true"
-              className="transition-transform duration-300 group-hover:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+              className="interactive-transition group-hover:translate-x-1 motion-reduce:group-hover:translate-x-0"
             >
-              ↗
+              &#8599;
             </span>
-          </a>
+          </ContactEmailCta>
 
           <ul className="mt-7 flex items-center gap-3">
             {socialContactLinks.map((link) => {
@@ -61,7 +62,7 @@ export function Contact() {
                     rel="noopener noreferrer"
                     aria-label={link.label}
                     title={link.label}
-                    className="inline-flex h-11 w-11 items-center justify-center rounded-sm text-foreground outline-none transition-colors duration-200 hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background motion-reduce:transition-none"
+                    className="inline-flex h-11 w-11 items-center justify-center rounded-sm text-foreground outline-none interactive-transition hover:text-accent focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-4 focus-visible:ring-offset-background"
                   >
                     <Icon className="h-6 w-6" />
                   </a>

@@ -1,9 +1,18 @@
 import { render, screen, within } from "@testing-library/react";
-import { describe, expect, it, vi } from "vitest";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+import { sphereSkills, type SphereSkill } from "./skills";
 import { About } from "./About";
 
+const { skillsSphereMock } = vi.hoisted(() => ({
+  skillsSphereMock: vi.fn(),
+}));
+
 vi.mock("./SkillsSphere", () => ({
-  SkillsSphere: () => <div aria-hidden="true" data-testid="skills-sphere" />,
+  SkillsSphere: (props: { skills: readonly SphereSkill[] }) => {
+    skillsSphereMock(props.skills);
+
+    return <div aria-hidden="true" data-testid="skills-sphere" />;
+  },
 }));
 
 const primaryStatement =
@@ -16,6 +25,10 @@ const futureAiParagraph =
   "My current focus is strengthening my software-engineering depth while continuing to develop gameplay and interactive 3D systems. Over time, I'm also building toward applied AI engineering through structured learning and production-focused projects.";
 
 describe("About", () => {
+  beforeEach(() => {
+    skillsSphereMock.mockClear();
+  });
+
   it("renders the about section with the expected anchor target", () => {
     render(<About />);
 
@@ -54,18 +67,44 @@ describe("About", () => {
     ).toBeInTheDocument();
   });
 
-  it("renders an accessible technical-skills equivalent for the sphere", () => {
+  it("renders an accessible technical-skills equivalent for the logo sphere", () => {
     render(<About />);
 
     const section = screen.getByRole("region", { name: primaryStatement });
     const skillsList = within(section).getByRole("list", {
       name: "Technical skills",
     });
+    const renderedSkills = within(skillsList)
+      .getAllByRole("listitem")
+      .map((item) => item.textContent);
 
-    expect(within(skillsList).getByText("TypeScript")).toBeInTheDocument();
-    expect(within(skillsList).getByText("React")).toBeInTheDocument();
-    expect(within(skillsList).getByText("Unity")).toBeInTheDocument();
-    expect(within(skillsList).getByText("C#")).toBeInTheDocument();
-    expect(within(skillsList).getByText("Three.js")).toBeInTheDocument();
+    expect(renderedSkills).toEqual(sphereSkills.map((skill) => skill.name));
+    expect(renderedSkills).toEqual(
+      expect.arrayContaining([
+        "TypeScript",
+        "JavaScript",
+        "React",
+        "Next.js",
+        "Node.js",
+        "MongoDB",
+        "Three.js",
+        "C#",
+        "Unity",
+        "Python",
+        "Java",
+        "Swift",
+        "Tailwind CSS",
+        "Microsoft Azure",
+        "Docker",
+        "Git",
+      ]),
+    );
+  });
+
+  it("passes the shared skill data into the visual sphere without visible label content", () => {
+    render(<About />);
+
+    expect(skillsSphereMock).toHaveBeenCalledWith(sphereSkills);
+    expect(screen.getByTestId("skills-sphere")).toBeEmptyDOMElement();
   });
 });

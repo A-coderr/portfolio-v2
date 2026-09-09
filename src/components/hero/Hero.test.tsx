@@ -14,23 +14,34 @@ describe("Hero", () => {
     ).toBeInTheDocument();
   });
 
-  it("links the primary call to action to the work section", () => {
+  it("links the primary call to action to the projects section", () => {
     render(<Hero />);
 
-    expect(
-      screen.getByRole("link", { name: "View selected work" }),
-    ).toHaveAttribute("href", "#work");
+    expect(screen.getByRole("link", { name: "View projects" })).toHaveAttribute(
+      "href",
+      "#projects",
+    );
   });
 
   it("links to GitHub safely in a new tab", () => {
     render(<Hero />);
 
-    const githubLink = screen.getByRole("link", { name: "GitHub ↗" });
+    const githubLink = screen.getByRole("link", { name: "GitHub" });
     const rel = githubLink.getAttribute("rel");
 
     expect(githubLink).toHaveAttribute("href", "https://github.com/A-coderr");
     expect(githubLink).toHaveAttribute("target", "_blank");
     expect(rel).toContain("noopener");
     expect(rel).toContain("noreferrer");
+  });
+
+  it("renders the stylized avatar image", () => {
+    render(<Hero />);
+
+    expect(
+      screen.getByRole("img", {
+        name: "Stylized 3D avatar of Anzhelika Kostyuk surrounded by software development technologies",
+      }),
+    ).toBeInTheDocument();
   });
 });
