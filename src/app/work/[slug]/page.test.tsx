@@ -1,5 +1,17 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { fireEvent, render, screen, within } from "@testing-library/react";
+import { describe, expect, it, vi } from "vitest";
+import {
+  neonChaserCaseStudyMetadata,
+  neonChaserHeroLabels,
+  neonChaserLinks,
+  neonChaserPowerUps,
+  neonChaserSnapshot,
+  persistentStateItems,
+  powerUpArchitectureFacts,
+  runtimeStateItems,
+  saveLoadRecoverySteps,
+  saveWriteSteps,
+} from "@/data/neon-chaser-case-study";
 import { allProjects, getProjectBySlug } from "@/data/projects";
 import WorkProjectPage, { generateMetadata, generateStaticParams } from "./page";
 
@@ -25,26 +37,162 @@ describe("WorkProjectPage", () => {
     );
   });
 
-  it("renders a known project case-study shell from project data", async () => {
-    const neonChaser = getProjectOrFail("neon-chaser");
-
+  it("renders the Neon Chaser case study with public actions and snapshot metadata", async () => {
     await renderCaseStudy("neon-chaser");
 
     expect(
+      screen.getByRole("heading", { level: 1, name: "Neon Chaser" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", {
+        name: "Screenshot of the Neon Chaser Unity racing game.",
+      }),
+    ).toBeInTheDocument();
+
+    for (const steamLink of screen.getAllByRole("link", {
+      name: /View on Steam/i,
+    })) {
+      expect(steamLink).toHaveAttribute("href", neonChaserLinks.steam);
+      expect(steamLink).toHaveAttribute("target", "_blank");
+      expect(steamLink).toHaveAttribute("rel", "noopener noreferrer");
+    }
+
+    for (const trailerLink of screen.getAllByRole("link", {
+      name: /Watch Trailer/i,
+    })) {
+      expect(trailerLink).toHaveAttribute("href", "#trailer");
+    }
+
+    const trailerSection = screen.getByRole("region", {
+      name: "See Neon Chaser in motion",
+    });
+    expect(trailerSection).toHaveAttribute("id", "trailer");
+
+    const technicalLabels = screen.getByRole("list", {
+      name: "Technical labels",
+    });
+
+    for (const label of neonChaserHeroLabels) {
+      expect(within(technicalLabels).getByText(label)).toBeInTheDocument();
+    }
+
+    for (const item of neonChaserSnapshot) {
+      expect(screen.getByText(item.label)).toBeInTheDocument();
+      expect(screen.getAllByText(item.value)[0]).toBeInTheDocument();
+    }
+  });
+
+  it("renders the requested Neon Chaser engineering story", async () => {
+    await renderCaseStudy("neon-chaser");
+
+    for (const powerUp of neonChaserPowerUps) {
+      expect(
+        screen.getByRole("heading", { level: 3, name: powerUp.name }),
+      ).toBeInTheDocument();
+      expect(screen.getByText(powerUp.category)).toBeInTheDocument();
+      expect(screen.getByText(powerUp.description)).toBeInTheDocument();
+    }
+
+    for (const heading of [
+      "The Game",
+      "See Neon Chaser in motion",
+      "My Contribution",
+      "Five Power-Ups, One System",
+      "Five abilities, one gameplay architecture",
+      "Persist the progression, not the simulation",
+      "A save system designed to fail safely",
+      "Where the persistence system can evolve next",
+      "See Neon Chaser in action",
+    ]) {
+      expect(
+        screen.getByRole("heading", { level: 2, name: heading }),
+      ).toBeInTheDocument();
+    }
+
+    for (const fact of powerUpArchitectureFacts) {
+      expect(screen.getByText(fact)).toBeInTheDocument();
+    }
+
+    for (const item of [
+      ...persistentStateItems,
+      ...runtimeStateItems,
+      ...saveWriteSteps,
+      ...saveLoadRecoverySteps,
+    ]) {
+      expect(screen.getAllByText(item)[0]).toBeInTheDocument();
+    }
+  });
+
+  it("loads the YouTube trailer iframe only after user interaction", async () => {
+    await renderCaseStudy("neon-chaser");
+
+    expect(screen.queryByTitle("Neon Chaser trailer")).not.toBeInTheDocument();
+
+    fireEvent.click(
+      screen.getByRole("button", { name: "Play Neon Chaser trailer" }),
+    );
+
+    expect(screen.getByTitle("Neon Chaser trailer")).toHaveAttribute(
+      "src",
+      neonChaserLinks.trailerEmbed,
+    );
+  });
+
+  it("renders project pages without the global header and keeps a back link to projects", async () => {
+    await renderCaseStudy("neon-chaser");
+
+    expect(
+      screen.queryByRole("navigation", { name: "Primary navigation" }),
+    ).not.toBeInTheDocument();
+    expect(
       screen.getByRole("link", { name: /Back to projects/i }),
     ).toHaveAttribute("href", "/#projects");
+  });
+
+  it("smoothly scrolls to case-study anchors without affecting the projects back link", async () => {
+    const scrollIntoView = vi.fn();
+
+    window.history.pushState(null, "", "/work/neon-chaser");
+    Object.defineProperty(Element.prototype, "scrollIntoView", {
+      configurable: true,
+      value: scrollIntoView,
+    });
+
+    await renderCaseStudy("neon-chaser");
+
+    fireEvent.click(screen.getAllByRole("link", { name: /Watch Trailer/i })[0]);
+
+    expect(window.location.hash).toBe("#trailer");
+    expect(scrollIntoView).toHaveBeenCalledWith({
+      behavior: "smooth",
+      block: "start",
+    });
     expect(
-      screen.getByRole("heading", { level: 1, name: neonChaser.title }),
+      screen.getByRole("link", { name: /Back to projects/i }),
+    ).toHaveAttribute("href", "/#projects");
+  });
+
+  it("renders the generic shell for projects without full case studies yet", async () => {
+    const assetPlatform = getProjectOrFail("asset-platform");
+
+    await renderCaseStudy("asset-platform");
+
+    expect(
+      screen.getByRole("heading", { level: 1, name: assetPlatform.title }),
     ).toBeInTheDocument();
-    expect(screen.getByText(neonChaser.preview.summary)).toBeInTheDocument();
-    for (const technology of neonChaser.preview.technologies) {
-      expect(screen.getByText(technology)).toBeInTheDocument();
-    }
+    expect(screen.getByText(assetPlatform.preview.summary)).toBeInTheDocument();
     expect(screen.getByText("Full case study coming next")).toBeInTheDocument();
   });
 
-  it("generates route metadata from project data", async () => {
+  it("generates route metadata from the appropriate project details", async () => {
     const assetPlatform = getProjectOrFail("asset-platform");
+
+    await expect(
+      generateMetadata({ params: Promise.resolve({ slug: "neon-chaser" }) }),
+    ).resolves.toMatchObject({
+      title: neonChaserCaseStudyMetadata.title,
+      description: neonChaserCaseStudyMetadata.description,
+    });
 
     await expect(
       generateMetadata({ params: Promise.resolve({ slug: "asset-platform" }) }),

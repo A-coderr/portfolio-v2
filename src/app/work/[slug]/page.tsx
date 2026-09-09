@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { Footer } from "@/components/layout/Footer";
+import { SamePageSmoothScroll } from "@/components/layout/SamePageSmoothScroll";
 import { CaseStudyShell } from "@/components/projects/CaseStudyShell";
+import { NeonChaserCaseStudy } from "@/components/projects/NeonChaserCaseStudy";
+import { neonChaserCaseStudyMetadata } from "@/data/neon-chaser-case-study";
 import { allProjects, getProjectBySlug } from "@/data/projects";
 
 type WorkProjectPageProps = {
@@ -21,6 +25,13 @@ export async function generateMetadata({
     notFound();
   }
 
+  if (project.slug === "neon-chaser") {
+    return {
+      title: neonChaserCaseStudyMetadata.title,
+      description: neonChaserCaseStudyMetadata.description,
+    };
+  }
+
   return {
     title: `${project.title} | Anzhelika Kostyuk`,
     description: project.preview.summary,
@@ -35,5 +46,18 @@ export default async function WorkProjectPage({ params }: WorkProjectPageProps) 
     notFound();
   }
 
-  return <CaseStudyShell project={project} />;
+  const caseStudy =
+    project.slug === "neon-chaser" ? (
+      <NeonChaserCaseStudy project={project} />
+    ) : (
+      <CaseStudyShell project={project} />
+    );
+
+  return (
+    <div className="min-h-screen bg-background text-foreground">
+      <SamePageSmoothScroll />
+      {caseStudy}
+      <Footer />
+    </div>
+  );
 }

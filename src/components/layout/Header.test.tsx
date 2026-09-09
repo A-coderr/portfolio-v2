@@ -16,16 +16,16 @@ describe("Header", () => {
     expect(within(navigation).getAllByRole("link")).toHaveLength(4);
     expect(
       within(navigation).getByRole("link", { name: "Projects" }),
-    ).toHaveAttribute("href", "#projects");
+    ).toHaveAttribute("href", "/#projects");
     expect(
       within(navigation).getByRole("link", { name: "Experience" }),
-    ).toHaveAttribute("href", "#experience");
+    ).toHaveAttribute("href", "/#experience");
     expect(
       within(navigation).getByRole("link", { name: "About" }),
-    ).toHaveAttribute("href", "#about");
+    ).toHaveAttribute("href", "/#about");
     expect(
       within(navigation).getByRole("link", { name: "Contact" }),
-    ).toHaveAttribute("href", "#contact");
+    ).toHaveAttribute("href", "/#contact");
     expect(
       within(navigation).queryByRole("link", { name: /resume/i }),
     ).not.toBeInTheDocument();
@@ -54,16 +54,16 @@ describe("Header", () => {
 
     expect(
       within(navigation).getByRole("link", { name: "Projects" }),
-    ).toHaveAttribute("href", "#projects");
+    ).toHaveAttribute("href", "/#projects");
     expect(
       within(navigation).getByRole("link", { name: "Experience" }),
-    ).toHaveAttribute("href", "#experience");
+    ).toHaveAttribute("href", "/#experience");
     expect(
       within(navigation).getByRole("link", { name: "About" }),
-    ).toHaveAttribute("href", "#about");
+    ).toHaveAttribute("href", "/#about");
     expect(
       within(navigation).getByRole("link", { name: "Contact" }),
-    ).toHaveAttribute("href", "#contact");
+    ).toHaveAttribute("href", "/#contact");
     expect(
       within(navigation).getByRole("link", { name: "Download Resume" }),
     ).toHaveAttribute("href", resumeHref);

@@ -216,4 +216,3 @@ export function getProjectBySlug(slug: string) {
 export function getProjectHref(project: Pick<PortfolioProject, "slug">) {
   return `/work/${project.slug}`;
 }
-
