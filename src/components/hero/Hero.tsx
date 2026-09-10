@@ -75,7 +75,7 @@ export function Hero() {
           height={1402}
           preload
           sizes="(min-width: 1280px) 540px, (min-width: 1024px) 470px, (min-width: 640px) 384px, 66vw"
-          className="h-auto w-full max-w-64 object-contain sm:max-w-80 md:max-w-96 lg:max-w-[30rem] xl:max-w-[34rem]"
+          className="h-auto w-full max-w-64 object-contain sm:max-w-80 md:max-w-96 lg:max-w-120 xl:max-w-136"
         />
       </div>
     </section>

@@ -4,11 +4,13 @@ import { Experience } from "@/components/experience/Experience";
 import { Hero } from "@/components/hero/Hero";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { SamePageSmoothScroll } from "@/components/layout/SamePageSmoothScroll";
 import { SelectedWork } from "@/components/projects/SelectedWork";
 
 export default function Home() {
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SamePageSmoothScroll />
       <Header />
       <main>
         <Hero />

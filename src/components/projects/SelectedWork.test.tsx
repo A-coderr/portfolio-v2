@@ -1,6 +1,6 @@
 import { render, screen, within } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
-import { getProjectHref, homepageProjects } from "@/data/projects";
+import { getProjectBySlug, getProjectHref, homepageProjects } from "@/data/projects";
 import { SelectedWork } from "./SelectedWork";
 
 function getProjectArticle(name: string) {
@@ -57,6 +57,43 @@ describe("SelectedWork", () => {
     }
   });
 
+  it("links the SKIF project card to its case-study route with the current CTA text", () => {
+    const skifProject = getProjectBySlug("skif-karate-canada");
+
+    expect(skifProject).toBeDefined();
+
+    render(<SelectedWork />);
+
+    const skifArticle = getProjectArticle("SKIF Karate Canada");
+
+    expect(
+      within(skifArticle).getByText(skifProject!.preview.summary),
+    ).toBeInTheDocument();
+    expect(
+      within(skifArticle).getByRole("link", {
+        name: `${skifProject!.preview.ctaLabel} for ${skifProject!.title}`,
+      }),
+    ).toHaveAttribute("href", "/work/skif-karate-canada");
+  });
+
+  it("links the Portfolio V1 project card to its case-study route with the current CTA text", () => {
+    const portfolioV1Project = getProjectBySlug("portfolio-v1");
+
+    expect(portfolioV1Project).toBeDefined();
+
+    render(<SelectedWork />);
+
+    const portfolioV1Article = getProjectArticle(portfolioV1Project!.title);
+
+    expect(
+      within(portfolioV1Article).getByText(portfolioV1Project!.preview.summary),
+    ).toBeInTheDocument();
+    expect(
+      within(portfolioV1Article).getByRole("link", {
+        name: `${portfolioV1Project!.preview.ctaLabel} for ${portfolioV1Project!.title}`,
+      }),
+    ).toHaveAttribute("href", "/work/portfolio-v1");
+  });
   it("keeps Neon Chaser first in the project sequence", () => {
     render(<SelectedWork />);
 
@@ -129,4 +166,3 @@ describe("SelectedWork", () => {
     expect(screen.queryByText(/planned/i)).not.toBeInTheDocument();
   });
 });
-

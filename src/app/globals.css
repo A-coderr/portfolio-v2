@@ -27,7 +27,6 @@
 html {
   background: var(--background);
   color-scheme: dark;
-  scroll-behavior: smooth;
 }
 
 body {
@@ -133,10 +132,6 @@ summary::marker {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
   .interactive-transition,
   .project-media__image {
     transition: none;
