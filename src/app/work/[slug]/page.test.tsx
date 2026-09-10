@@ -19,6 +19,7 @@ import {
   portfolioV1HeroLabels,
 } from "@/data/portfolio-v1-case-study";
 import { allProjects, getProjectBySlug } from "@/data/projects";
+import { siteConfig } from "@/data/site";
 import {
   skifCaseStudyLinks,
   skifCaseStudyMetadata,
@@ -366,6 +367,19 @@ describe("WorkProjectPage", () => {
     ).resolves.toMatchObject({
       title: neonChaserCaseStudyMetadata.title,
       description: neonChaserCaseStudyMetadata.description,
+      alternates: { canonical: "/work/neon-chaser" },
+      openGraph: {
+        title: neonChaserCaseStudyMetadata.title,
+        description: neonChaserCaseStudyMetadata.description,
+        url: "/work/neon-chaser",
+        siteName: siteConfig.name,
+        type: "article",
+      },
+      twitter: {
+        card: "summary_large_image",
+        title: neonChaserCaseStudyMetadata.title,
+        description: neonChaserCaseStudyMetadata.description,
+      },
     });
 
     await expect(
@@ -373,6 +387,7 @@ describe("WorkProjectPage", () => {
     ).resolves.toMatchObject({
       title: skifCaseStudyMetadata.title,
       description: skifCaseStudyMetadata.description,
+      alternates: { canonical: "/work/skif-karate-canada" },
     });
 
     await expect(
@@ -380,6 +395,7 @@ describe("WorkProjectPage", () => {
     ).resolves.toMatchObject({
       title: portfolioV1CaseStudyMetadata.title,
       description: portfolioV1CaseStudyMetadata.description,
+      alternates: { canonical: "/work/portfolio-v1" },
     });
 
     await expect(
@@ -387,6 +403,7 @@ describe("WorkProjectPage", () => {
     ).resolves.toMatchObject({
       title: `${assetPlatform.title} | Anzhelika Kostyuk`,
       description: assetPlatform.preview.summary,
+      alternates: { canonical: "/work/asset-platform" },
     });
   });
 

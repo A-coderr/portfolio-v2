@@ -7,13 +7,68 @@ import { NeonChaserCaseStudy } from "@/components/projects/NeonChaserCaseStudy";
 import { PortfolioV1CaseStudy } from "@/components/projects/PortfolioV1CaseStudy";
 import { SkifKarateCaseStudy } from "@/components/projects/SkifKarateCaseStudy";
 import { neonChaserCaseStudyMetadata } from "@/data/neon-chaser-case-study";
-import { allProjects, getProjectBySlug } from "@/data/projects";
+import { allProjects, getProjectBySlug, getProjectHref, type PortfolioProject } from "@/data/projects";
 import { portfolioV1CaseStudyMetadata } from "@/data/portfolio-v1-case-study";
+import { siteConfig } from "@/data/site";
 import { skifCaseStudyMetadata } from "@/data/skif-case-study";
 
 type WorkProjectPageProps = {
   params: Promise<{ slug: string }>;
 };
+
+function getProjectMetadata(project: PortfolioProject) {
+  if (project.slug === "neon-chaser") {
+    return neonChaserCaseStudyMetadata;
+  }
+
+  if (project.slug === "skif-karate-canada") {
+    return skifCaseStudyMetadata;
+  }
+
+  if (project.slug === "portfolio-v1") {
+    return portfolioV1CaseStudyMetadata;
+  }
+
+  return {
+    title: `${project.title} | Anzhelika Kostyuk`,
+    description: project.preview.summary,
+  } as const;
+}
+
+function buildProjectMetadata(project: PortfolioProject): Metadata {
+  const projectMetadata = getProjectMetadata(project);
+  const path = getProjectHref(project);
+
+  return {
+    title: projectMetadata.title,
+    description: projectMetadata.description,
+    alternates: {
+      canonical: path,
+    },
+    openGraph: {
+      title: projectMetadata.title,
+      description: projectMetadata.description,
+      url: path,
+      siteName: siteConfig.name,
+      locale: siteConfig.locale,
+      type: "article",
+      images: [
+        {
+          url: siteConfig.ogImagePath,
+          width: 1200,
+          height: 630,
+          alt: "Anzhelika Kostyuk software developer portfolio",
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: projectMetadata.title,
+      description: projectMetadata.description,
+      images: [siteConfig.ogImagePath],
+    },
+  };
+}
 
 export function generateStaticParams() {
   return allProjects.map((project) => ({ slug: project.slug }));
@@ -29,31 +84,7 @@ export async function generateMetadata({
     notFound();
   }
 
-  if (project.slug === "neon-chaser") {
-    return {
-      title: neonChaserCaseStudyMetadata.title,
-      description: neonChaserCaseStudyMetadata.description,
-    };
-  }
-
-  if (project.slug === "skif-karate-canada") {
-    return {
-      title: skifCaseStudyMetadata.title,
-      description: skifCaseStudyMetadata.description,
-    };
-  }
-
-  if (project.slug === "portfolio-v1") {
-    return {
-      title: portfolioV1CaseStudyMetadata.title,
-      description: portfolioV1CaseStudyMetadata.description,
-    };
-  }
-
-  return {
-    title: `${project.title} | Anzhelika Kostyuk`,
-    description: project.preview.summary,
-  };
+  return buildProjectMetadata(project);
 }
 
 export default async function WorkProjectPage({ params }: WorkProjectPageProps) {
