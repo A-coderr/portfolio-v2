@@ -1,280 +1,70 @@
-# Portfolio V2
+# Anzhelika Kostyuk — Portfolio
 
-A professional software engineering portfolio built to showcase my work across web development, interactive 3D, and game development.
+Production portfolio built with Next.js, TypeScript, Tailwind CSS, and React Three Fiber.
 
-The project is being designed and developed from the ground up with an emphasis on clean architecture, accessibility, responsive design, testing, performance, and intentional interaction.
+**Live site:** _Add production URL after deployment_
 
-> **Status:** Active development
+## Technical Overview
 
-## About
-
-This is the second major version of my personal portfolio.
-
-Rather than functioning as a traditional résumé-style website, Portfolio V2 is structured around technical case studies that explain the problems I worked on, the systems I built, the engineering decisions involved, and the results of the work.
-
-The portfolio is designed around three connected areas of my software engineering work:
-
-- Software engineering and web applications
-- Unity/C# game development
-- Interactive 3D experiences and tools
-
-Featured work will include projects such as:
-
-- **Neon Chaser** — Unity/C# racing game and gameplay systems
-- **Digital Asset Management Platform** — professional full-stack and interactive 3D platform work
-- **SKIF Karate Canada** — production website designed, developed, deployed, and maintained end-to-end
-- **Portfolio V1** — previous React and React Three Fiber portfolio
-
-## Tech Stack
-
-### Core
-
-- Next.js
-- React
-- TypeScript
+- Next.js + React + TypeScript
 - Tailwind CSS
+- Three.js / React Three Fiber for selective interactive 3D
+- Vitest + React Testing Library
+- Dynamic project case-study routes
+- Lightweight click-to-load YouTube embeds
+- Centralized SEO, canonical URL, sitemap, robots, and social metadata
+- Designed for Vercel deployment
 
-### Design
+## Quality
 
-- Figma
-- Geist Sans
-- Geist Mono
+| Check | Result |
+| --- | --- |
+| Automated tests | 53 passing |
+| Test files | 11 |
+| Lint | Passing |
+| Production build | Passing |
+| TypeScript | Passing through Next.js build |
+| Browser console | No known warnings or errors |
 
-### Planned Interactive 3D
+Testing focuses on user-visible behavior rather than implementation details or snapshot-heavy coverage.
 
-- Three.js
-- React Three Fiber
-- Drei
+## Architecture Notes
 
-Interactive 3D dependencies will be introduced only where they provide meaningful value to the experience.
+The portfolio is intentionally mostly static/server-rendered, with client-side JavaScript limited to features that require interaction.
 
-### Quality
+Interactive 3D is used selectively to preserve visual identity without adding unnecessary runtime cost.
 
-The project is being developed with:
+Project case studies share reusable layout patterns while retaining project-specific content.
 
-- ESLint
-- automated component testing
-- accessibility-focused implementation
-- responsive design
-- reduced-motion support
-- GitHub Actions CI
-- pull-request based development
+The canonical production URL is centralized through `SITE_URL` for clean deployment and custom-domain configuration.
 
-## Project Structure
-
-```text
-src/
-├── app/                  # Next.js App Router pages and global styles
-├── components/
-│   ├── hero/             # Hero and interactive systems visual
-│   ├── layout/           # Navigation and shared layout components
-│   ├── project/          # Project presentation components
-│   └── ui/               # Reusable UI primitives
-├── data/                 # Portfolio and project content
-└── lib/                  # Shared utilities
-```
-
-The structure will evolve as additional case studies and interactive features are added.
-
-## Getting Started
-
-### Requirements
-
-- Node.js
-- npm
-
-### Installation
-
-Clone the repository:
-
-```bash
-git clone https://github.com/A-coderr/portfolio-v2.git
-cd portfolio-v2
-```
-
-Install dependencies:
+## Local Development
 
 ```bash
 npm install
-```
-
-Start the development server:
-
-```bash
 npm run dev
 ```
 
-Open:
-
-```text
-http://localhost:3000
-```
-
-## Available Scripts
-
-```bash
-npm run dev
-```
-
-Runs the application in development mode.
-
-```bash
-npm run build
-```
-
-Creates a production build.
-
-```bash
-npm run start
-```
-
-Runs the production build locally.
-
-```bash
-npm run lint
-```
-
-Runs ESLint.
-
-Once the automated testing foundation is added:
+Quality checks:
 
 ```bash
 npm test
-npm run test:watch
+npm run lint
+npm run build
 ```
 
-will run the project's automated tests.
+## Deployment
 
-## Engineering Principles
+Designed for Vercel.
 
-This project is intentionally being treated as a production-quality software project rather than only a visual portfolio.
-
-Development follows several core principles:
-
-- Prefer clear, reusable components over large page-level implementations.
-- Keep portfolio content separate from presentation where practical.
-- Use TypeScript for application code.
-- Prioritize semantic HTML and accessibility.
-- Respect `prefers-reduced-motion`.
-- Add animation only when it improves communication or interaction.
-- Avoid unnecessary dependencies.
-- Test meaningful user-facing behavior rather than implementation details.
-- Use comments to explain non-obvious intent or architectural decisions, not obvious code.
-- Keep significant development work tied to GitHub issues and feature branches.
-- Run tests, linting, and production builds before merging significant changes.
-
-## Development Workflow
-
-Significant work follows a lightweight issue-based workflow:
+For the final production domain:
 
 ```text
-GitHub Issue
-    ↓
-Feature Branch
-    ↓
-Implementation
-    ↓
-Tests + Lint + Build
-    ↓
-Pull Request
-    ↓
-Review
-    ↓
-Merge to main
+SITE_URL=https://your-domain.com
 ```
-
-Example branch names:
-
-```text
-feature/hero-foundation
-feature/selected-work
-feature/neon-chaser-case-study
-fix/mobile-navigation
-```
-
-## Design Direction
-
-The visual identity combines professional software engineering with interactive and game-development influences.
-
-The design system uses:
-
-- dark graphite surfaces
-- strong editorial typography
-- restrained coral accents
-- technical metadata using monospace typography
-- generous spacing
-- subtle interaction
-- project media as the primary visual content
-
-The goal is to create an interface that feels technically sophisticated without becoming a generic developer template, SaaS landing page, or gaming website.
-
-## Current Roadmap
-
-### Foundation
-
-- [x] Initialize Next.js project
-- [x] Configure Git repository
-- [x] Establish initial design direction
-- [x] Build initial hero foundation
-- [ ] Add automated testing foundation
-- [ ] Add GitHub Actions CI
-- [ ] Complete responsive hero review
-
-### Homepage
-
-- [ ] Selected Work
-- [ ] Neon Chaser featured project
-- [ ] VARLab project presentation
-- [ ] SKIF Karate Canada project presentation
-- [ ] Engineering in Practice
-- [ ] Capabilities
-- [ ] Experience
-- [ ] About
-- [ ] Contact
-
-### Case Studies
-
-- [ ] Neon Chaser
-- [ ] Digital Asset Management Platform
-- [ ] SKIF Karate Canada
-- [ ] Portfolio V1
-
-### Interactive Experience
-
-- [ ] Prototype interactive 3D hero
-- [ ] Implement reduced-motion fallback
-- [ ] Optimize WebGL performance
-- [ ] Validate mobile performance
-
-### Launch
-
-- [ ] Cross-browser QA
-- [ ] Accessibility review
-- [ ] Performance audit
-- [ ] SEO and social metadata
-- [ ] Production deployment
-
-## Project Management
-
-Development tasks, enhancements, bugs, and technical work are tracked through GitHub Issues and the **Portfolio V2** GitHub Project.
-
-The board follows:
-
-```text
-Backlog → Ready → In Progress → Review → Done
-```
-
-## Author
-
-**Anzhelika Kostyuk**
-
-Software Developer focused on web applications, interactive 3D, and Unity/C# game development.
-
-- GitHub: [A-coderr](https://github.com/A-coderr)
-- LinkedIn: Add final LinkedIn URL here
 
 ## License
 
-This repository contains the source code for my personal portfolio.
+Source code is available under the [MIT License](./LICENSE).
 
-A formal license has not yet been selected.
+Personal branding, artwork, screenshots, third-party trademarks, and third-party logos are excluded unless otherwise stated.
