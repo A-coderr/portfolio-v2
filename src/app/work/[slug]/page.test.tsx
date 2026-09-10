@@ -12,6 +12,12 @@ import {
   saveLoadRecoverySteps,
   saveWriteSteps,
 } from "@/data/neon-chaser-case-study";
+import {
+  portfolioV1CaseStudyLinks,
+  portfolioV1CaseStudyMetadata,
+  portfolioV1Comparison,
+  portfolioV1HeroLabels,
+} from "@/data/portfolio-v1-case-study";
 import { allProjects, getProjectBySlug } from "@/data/projects";
 import {
   skifCaseStudyLinks,
@@ -203,6 +209,94 @@ describe("WorkProjectPage", () => {
     }
   });
 
+  it("renders the Portfolio V1 case study with public links and current technical labels", async () => {
+    await renderCaseStudy("portfolio-v1");
+
+    expect(
+      screen.getByRole("heading", { level: 1, name: "Portfolio V1" }),
+    ).toBeInTheDocument();
+    expect(screen.getByText("WEB DEVELOPMENT")).toBeInTheDocument();
+    expect(
+      screen.getByText(
+        "An interactive developer portfolio that explored how React and browser-based 3D could turn a traditional personal site into a more playful technical experience.",
+      ),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("img", {
+        name: "Screenshot of Anzhelika Kostyuk's previous interactive portfolio.",
+      }),
+    ).toBeInTheDocument();
+
+    const liveSiteLink = screen.getByRole("link", {
+      name: /Visit Live Site/i,
+    });
+
+    expect(liveSiteLink).toHaveAttribute(
+      "href",
+      portfolioV1CaseStudyLinks.liveSite,
+    );
+    expect(liveSiteLink).toHaveAttribute("target", "_blank");
+    expect(liveSiteLink).toHaveAttribute("rel", "noopener noreferrer");
+
+    const sourceLink = screen.getByRole("link", { name: /View Source/i });
+
+    expect(sourceLink).toHaveAttribute(
+      "href",
+      portfolioV1CaseStudyLinks.source,
+    );
+    expect(sourceLink).toHaveAttribute("target", "_blank");
+    expect(sourceLink).toHaveAttribute("rel", "noopener noreferrer");
+    expect(sourceLink).not.toHaveTextContent("↗");
+
+    const sourceIcon = sourceLink.querySelector("svg");
+
+    expect(sourceIcon).not.toBeNull();
+    expect(sourceIcon).toHaveAttribute("aria-hidden", "true");
+    expect(sourceIcon).toHaveAttribute("focusable", "false");
+
+    const technicalLabels = screen.getByRole("list", {
+      name: "Technical labels",
+    });
+
+    for (const label of portfolioV1HeroLabels) {
+      expect(within(technicalLabels).getByText(label)).toBeInTheDocument();
+    }
+  });
+
+  it("renders the Portfolio V1 evolution story", async () => {
+    await renderCaseStudy("portfolio-v1");
+
+    for (const heading of [
+      "Exploring beyond a conventional portfolio",
+      "Turning a skills list into a 3D interface",
+      "Mixing application UI with a 3D scene",
+      "What changed between V1 and V2",
+    ]) {
+      expect(
+        screen.getByRole("heading", { level: 2, name: heading }),
+      ).toBeInTheDocument();
+    }
+
+    for (const comparison of [
+      portfolioV1Comparison.v1,
+      portfolioV1Comparison.v2,
+    ]) {
+      expect(
+        screen.getByRole("heading", { level: 3, name: comparison.title }),
+      ).toBeInTheDocument();
+      for (const item of comparison.items) {
+        expect(screen.getByText(item)).toBeInTheDocument();
+      }
+    }
+
+    expect(
+      screen.getByText(/Portfolio V1 taught me how much interactive 3D can add/i),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("list", { name: "Skills sphere rendering flow" }),
+    ).not.toBeInTheDocument();
+  });
+
   it("loads the YouTube trailer iframe only after user interaction", async () => {
     await renderCaseStudy("neon-chaser");
 
@@ -219,7 +313,7 @@ describe("WorkProjectPage", () => {
   });
 
   it("renders project pages without the global header and keeps a back link to projects", async () => {
-    await renderCaseStudy("neon-chaser");
+    await renderCaseStudy("portfolio-v1");
 
     expect(
       screen.queryByRole("navigation", { name: "Primary navigation" }),
@@ -279,6 +373,13 @@ describe("WorkProjectPage", () => {
     ).resolves.toMatchObject({
       title: skifCaseStudyMetadata.title,
       description: skifCaseStudyMetadata.description,
+    });
+
+    await expect(
+      generateMetadata({ params: Promise.resolve({ slug: "portfolio-v1" }) }),
+    ).resolves.toMatchObject({
+      title: portfolioV1CaseStudyMetadata.title,
+      description: portfolioV1CaseStudyMetadata.description,
     });
 
     await expect(

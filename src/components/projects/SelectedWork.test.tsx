@@ -76,6 +76,24 @@ describe("SelectedWork", () => {
     ).toHaveAttribute("href", "/work/skif-karate-canada");
   });
 
+  it("links the Portfolio V1 project card to its case-study route with the current CTA text", () => {
+    const portfolioV1Project = getProjectBySlug("portfolio-v1");
+
+    expect(portfolioV1Project).toBeDefined();
+
+    render(<SelectedWork />);
+
+    const portfolioV1Article = getProjectArticle(portfolioV1Project!.title);
+
+    expect(
+      within(portfolioV1Article).getByText(portfolioV1Project!.preview.summary),
+    ).toBeInTheDocument();
+    expect(
+      within(portfolioV1Article).getByRole("link", {
+        name: `${portfolioV1Project!.preview.ctaLabel} for ${portfolioV1Project!.title}`,
+      }),
+    ).toHaveAttribute("href", "/work/portfolio-v1");
+  });
   it("keeps Neon Chaser first in the project sequence", () => {
     render(<SelectedWork />);
 

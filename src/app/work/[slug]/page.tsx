@@ -4,9 +4,11 @@ import { Footer } from "@/components/layout/Footer";
 import { SamePageSmoothScroll } from "@/components/layout/SamePageSmoothScroll";
 import { CaseStudyShell } from "@/components/projects/CaseStudyShell";
 import { NeonChaserCaseStudy } from "@/components/projects/NeonChaserCaseStudy";
+import { PortfolioV1CaseStudy } from "@/components/projects/PortfolioV1CaseStudy";
 import { SkifKarateCaseStudy } from "@/components/projects/SkifKarateCaseStudy";
 import { neonChaserCaseStudyMetadata } from "@/data/neon-chaser-case-study";
 import { allProjects, getProjectBySlug } from "@/data/projects";
+import { portfolioV1CaseStudyMetadata } from "@/data/portfolio-v1-case-study";
 import { skifCaseStudyMetadata } from "@/data/skif-case-study";
 
 type WorkProjectPageProps = {
@@ -41,6 +43,13 @@ export async function generateMetadata({
     };
   }
 
+  if (project.slug === "portfolio-v1") {
+    return {
+      title: portfolioV1CaseStudyMetadata.title,
+      description: portfolioV1CaseStudyMetadata.description,
+    };
+  }
+
   return {
     title: `${project.title} | Anzhelika Kostyuk`,
     description: project.preview.summary,
@@ -60,6 +69,8 @@ export default async function WorkProjectPage({ params }: WorkProjectPageProps) 
       <NeonChaserCaseStudy project={project} />
     ) : project.slug === "skif-karate-canada" ? (
       <SkifKarateCaseStudy project={project} />
+    ) : project.slug === "portfolio-v1" ? (
+      <PortfolioV1CaseStudy project={project} />
     ) : (
       <CaseStudyShell project={project} />
     );
